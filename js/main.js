@@ -29,5 +29,17 @@ document.addEventListener("keydown", function(event){
 			character.xPos += 5;
 			character.render();
 		break;
+		// Down arrow
+		case 40:
+			console.log('down');
+			character.yPos +=10;
+			character.render();
+		break;
+		// Up arrow
+		case 38:
+			console.log('up');
+			character.yPos -=40;
+			character.render();
+		break;		
 	}
 });

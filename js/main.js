@@ -1,7 +1,7 @@
 console.log("hello");
 var cvs = document.getElementById("cvs");
 var ctx = cvs.getContext("2d");
-
+ctx.webkitImageSmoothingEnabled = false;
 var character = {
 	name: "Beamio",
 	xPos: 47,
@@ -14,6 +14,14 @@ var character = {
 		ctx.fillRect(this.xPos,this.yPos,15,15);
 	}
 }
+
+var marioSprite = new Image();
+marioSprite.src = '../img/mario-sprite.gif';
+
+marioSprite.addEventListener("load", function(){
+	ctx.drawImage(marioSprite,12,5,12,15,0,0,60,75);
+});
+
 
 document.addEventListener("keydown", function(event){
 	switch(event.keyCode){

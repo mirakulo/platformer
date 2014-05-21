@@ -3,16 +3,24 @@ var cvs = document.getElementById("cvs");
 var ctx = cvs.getContext("2d");
 ctx.webkitImageSmoothingEnabled = false;
 var character = {
-	name: "Beamio",
+	name: "Mario",
 	xPos: 47,
 	yPos: 60,
+	isWalking: false,
 	render: function() {
-		cvs.width = cvs.width;
-		ctx.fillStyle = "#D72700";
-		ctx.fillRect(this.xPos + 3,this.yPos + 15,10,40);
-		ctx.fillStyle = "black";
-		ctx.fillRect(this.xPos,this.yPos,15,15);
+		clearCanvas();
+		if (this.isWalking){
+			ctx.drawImage(marioSprite,114,4,15,16,this.xPos,this.yPos,75,80);
+			this.isWalking = false;
+		}else{
+			ctx.drawImage(marioSprite,12,5,12,15,this.xPos,this.yPos,60,75);
+			this.isWalking = true;
+		}		
 	}
+}
+
+function clearCanvas(){
+	ctx.clearRect(0,0,cvs.width,cvs.height);
 }
 
 var marioSprite = new Image();
@@ -20,6 +28,7 @@ marioSprite.src = '../img/mario-sprite.gif';
 
 marioSprite.addEventListener("load", function(){
 	ctx.drawImage(marioSprite,12,5,12,15,0,0,60,75);
+	//ctx.drawImage(marioSprite,114,4,15,16,0,0,75,80);
 });
 
 

@@ -1,4 +1,3 @@
-console.log("hello");
 var cvs = document.getElementById("cvs");
 var ctx = cvs.getContext("2d");
 ctx.webkitImageSmoothingEnabled = false;
@@ -14,7 +13,7 @@ var character = {
 			this.isWalking = false;
 		}else{
 			ctx.drawImage(marioSprite,12,5,12,15,this.xPos,this.yPos,60,75);
-			this.isWalking = true;
+			// this.isWalking = true;
 		}		
 	}
 }
@@ -28,35 +27,50 @@ marioSprite.src = '../img/mario-sprite.gif';
 
 marioSprite.addEventListener("load", function(){
 	ctx.drawImage(marioSprite,12,5,12,15,0,0,60,75);
-	//ctx.drawImage(marioSprite,114,4,15,16,0,0,75,80);
+
 });
 
+
+var keysPressed = {}
 
 document.addEventListener("keydown", function(event){
-	switch(event.keyCode){
-		// Left arrow
-		case 37:
-			console.log('left');
-			character.xPos -= 5;
-			character.render();
-		break;		
-		// Right arrow
-		case 39:
-			console.log('right');
-			character.xPos += 5;
-			character.render();
-		break;
-		// Down arrow
-		case 40:
-			console.log('down');
-			character.yPos +=10;
-			character.render();
-		break;
-		// Up arrow
-		case 38:
-			console.log('up');
-			character.yPos -=40;
-			character.render();
-		break;		
-	}
+	keysPressed[event.keyCode] = true;
 });
+
+document.addEventListener("keyup", function(event){
+	delete keysPressed[event.keyCode];
+});
+
+function handleInput() {
+	if(keysPressed[37]){
+		character.xPos -= 5;
+	}
+	if(keysPressed[39]){
+		character.xPos += 5;
+	}
+	if(keysPressed[40]){
+		character.yPos += 10;
+	}
+	if(keysPressed[38]){
+		character.yPos -= 10;
+	}
+}
+
+function update(dt) {
+
+}
+
+function render() {
+	character.render();
+}
+
+
+function tick(){
+ 	handleInput();
+	update();
+	render();
+}
+
+tick();
+
+var gameLoopId = setInterval(tick, 16);
